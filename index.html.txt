@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Non-Conformity Report (NCR) Form - Mahoney-Egypt</title>
+    <form method="POST" action="https://formspree.io/f/mdkggvnp">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Apply Inter font globally */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Style for required fields */
+        label.required::after {
+            content: '*';
+            color: red;
+            margin-left: 0.25rem;
+        }
+        /* Custom scrollbar for textareas */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        textarea::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        /* Styling for RPN and S, O, D factors */
+        .rpn-options-container { /* Also for S,O,D sections */
+            margin-top: 1rem; 
+        }
+        .rpn-label { /* Also used for S, O, D titles and RPN sub-labels */
+            display: block;
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* font-medium */
+            color: #374151; /* text-gray-700 */
+            margin-bottom: 0.25rem; 
+        }
+        .factor-description { 
+            font-size: 0.75rem; /* text-xs */
+            color: #4b5563; /* text-gray-600 */
+            margin-top: 0.25rem; /* mt-1 */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+        .factor-option-group { 
+             margin-top: 0.25rem; /* mt-1 */
+        }
+        .factor-option { 
+            display: inline-flex;
+            align-items: center;
+            margin-right: 1rem; /* mr-4 */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+        .factor-option input[type="radio"] {
+            height: 1rem; /* h-4 */
+            width: 1rem; /* w-4 */
+            color: #4f46e5; /* text-indigo-600 */
+            border-color: #d1d5db; /* border-gray-300 */
+        }
+        .factor-option input[type="radio"]:focus {
+            ring: #4f46e5; /* focus:ring-indigo-500 */
+        }
+        .factor-option input[type="radio"]:disabled + span { /* Style for text next to disabled radio */
+            color: #6b7280; /* text-gray-500 for a slightly muted look */
+        }
+         .factor-option input[type="radio"]:disabled {
+            cursor: not-allowed;
+            background-color: #e5e7eb; /* bg-gray-200 */
+        }
+        .factor-option span {
+            margin-left: 0.5rem; /* ml-2 */
+            font-size: 0.875rem; /* text-sm */
+            color: #374151; /* text-gray-700 */
+        }
+        /* Style for the calculated RPN display */
+        #calculated_rpn_display {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            background-color: #eef2ff; /* indigo-50 for a subtle highlight */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+    <div class="max-w-5xl mx-auto bg-white p-6 md:p-8 rounded-lg shadow-lg">
+        <div class="mb-8 text-center">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Non-Conformity Report (NCR) Form</h1>
+            <p class="text-gray-600 mt-1">Mahoney-Egypt - Quality Assurance</p>
+            <hr class="mt-4">
+            <p class="text-sm text-gray-500 mt-2">NCR Number: <span class="font-semibold">[To be assigned by QA]</span></p>
+        </div>
+
+        <form action="#" method="POST">
+            <fieldset class="mb-6 border border-gray-300 p-4 rounded-md">
+                <legend class="text-lg font-semibold text-gray-700 px-2">Identification</legend>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                    <div>
+                        <label for="ncr_date" class="block text-sm font-medium text-gray-700 required">Date Identified</label>
+                        <input type="date" id="ncr_date" name="ncr_date" required
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="department" class="block text-sm font-medium text-gray-700 required">Department</label>
+                        <input type="text" id="department" name="department" required placeholder="e.g., Feeder Operations"
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                     <div>
+                        <label for="originator" class="block text-sm font-medium text-gray-700 required">Originator</label>
+                        <input type="text" id="originator" name="originator" required placeholder="Name of person identifying the NC"
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="md:col-span-3">
+                        <label for="reference_procedure" class="block text-sm font-medium text-gray-700 required">Reference to Procedure / Standard</label>
+                        <input type="text" id="reference_procedure" name="reference_procedure" required placeholder="e.g., SOP-OPS-005, ISO 9001: Clause 8.7, Customer Spec XYZ"
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="md:col-span-3">
+                        <label for="nc_description" class="block text-sm font-medium text-gray-700 required">Description of Non-Conformity</label>
+                        <textarea id="nc_description" name="nc_description" rows="4" required placeholder="Detail the non-conforming output (product, service, process). Specify the requirement and how it failed to meet it. Include codes, batch numbers, etc."
+                                  class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                    </div>
+                    <div class="md:col-span-3">
+                        <label for="containment_actions" class="block text-sm font-medium text-gray-700 required">Immediate Containment Actions Taken</label>
+                        <textarea id="containment_actions" name="containment_actions" rows="3" required placeholder="Describe actions taken to prevent unintended use/delivery (e.g., segregation, quarantine, process stopped)."
+                                  class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-6 border border-gray-300 p-4 rounded-md bg-indigo-50">
+                <legend class="text-lg font-semibold text-indigo-700 px-2">Assessment & Investigation</legend>
+                 <p class="text-xs text-gray-500 mb-4 px-2">This section details the assessment and investigation of the non-conformity.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 mt-4"> 
+                    <div class="md:col-span-2">
+                        <label for="qa_assessment" class="block text-sm font-medium text-gray-700">Initial Assessment Description (Severity/Impact)</label>
+                        <textarea id="qa_assessment" name="qa_assessment" rows="3" placeholder="Describe the initial assessment of the non-conformity, including its severity and potential impact."
+                                  class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                    </div>
+
+                    <div class="md:col-span-2 mt-3"> 
+                        <label class="rpn-label">Severity (S)</label>
+                        <p class="factor-description">Measures how serious the impact of the non-conformity would be.</p>
+                        <div class="factor-option-group flex flex-wrap">
+                            <label class="factor-option">
+                                <input type="radio" name="severity_score" value="1" class="form-radio">
+                                <span>1: Minor - Minimal impact/inconvenience.</span>
+                            </label>
+                            <label class="factor-option">
+                                <input type="radio" name="severity_score" value="2" class="form-radio">
+                                <span>2: Major - Moderate impact; potential customer complaint/operational disruption.</span>
+                            </label>
+                            <label class="factor-option">
+                                <input type="radio" name="severity_score" value="3" class="form-radio">
+                                <span>3: Critical - Significant impact on quality/function/safety.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2 mt-3"> 
+                        <label class="rpn-label">Occurrence (O)</label>
+                        <p class="factor-description">Estimates how likely or frequently the non-conformity is expected to happen.</p>
+                        <div class="factor-option-group flex flex-wrap">
+                            <label class="factor-option">
+                                <input type="radio" name="occurrence_score" value="1" class="form-radio">
+                                <span>1: Remote - Extremely unlikely.</span>
+                            </label>
+                            <label class="factor-option">
+                                <input type="radio" name="occurrence_score" value="2" class="form-radio">
+                                <span>2: Low - Unlikely, but possible.</span>
+                            </label>
+                            <label class="factor-option">
+                                <input type="radio" name="occurrence_score" value="3" class="form-radio">
+                                <span>3: Moderate - Could happen occasionally.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2 mt-3"> 
+                        <label class="rpn-label">Detection (D)</label>
+                        <p class="factor-description">Assesses how likely current controls will find the non-conformity. Lower score = better detection.</p>
+                        <div class="factor-option-group flex flex-wrap">
+                            <label class="factor-option">
+                                <input type="radio" name="detection_score" value="1" class="form-radio">
+                                <span>1: Very High - Almost certain detection (e.g., error-proofing).</span>
+                            </label>
+                            <label class="factor-option">
+                                <input type="radio" name="detection_score" value="2" class="form-radio">
+                                <span>2: High - Good chance of detection (e.g., automated checks).</span>
+                            </label>
+                            <label class="factor-option">
+                                <input type="radio" name="detection_score" value="3" class="form-radio">
+                                <span>3: Moderate - Fair chance of detection (e.g., standard checks).</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="md:col-span-2 rpn-options-container border-t border-indigo-200 pt-4 mt-4"> 
+                        <label class="rpn-label text-indigo-700 font-semibold">RPN (Risk Priority Number)</label>
+                        <div class="mt-1 mb-3"> 
+                            <span class="text-sm font-medium text-gray-700">Calculated RPN Value: </span>
+                            <span id="calculated_rpn_display" class="text-lg font-bold text-indigo-600">N/A</span>
+                        </div>
+                        <label class="rpn-label mt-2 text-sm">RPN Category (auto-selected based on S x O x D):</label>
+                        <div class="mt-1 flex flex-wrap">
+                            <label class="factor-option">
+                                <input type="radio" id="rpn_minor_auto" name="rpn_category_auto" value="minor" class="form-radio" disabled>
+                                <span>Minor 1-10</span>
+                            </label>
+                            <label class="factor-option">
+                                <input type="radio" id="rpn_major_auto" name="rpn_category_auto" value="major" class="form-radio" disabled>
+                                <span>Major 10-22</span>
+                            </label>
+                            <label class="factor-option">
+                                <input type="radio" id="rpn_critical_auto" name="rpn_category_auto" value="critical" class="form-radio" disabled>
+                                <span>Critical &gt;22</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 mt-3"> 
+                        <label for="investigators" class="block text-sm font-medium text-gray-700">Assigned Investigator(s) (if Major/Critical RPN or High Severity)</label>
+                        <input type="text" id="investigators" name="investigators" placeholder="Names or team assigned for RCA"
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="md:col-span-2 mt-3"> 
+                        <label for="rca_findings" class="block text-sm font-medium text-gray-700">Root Cause Analysis Findings</label>
+                        <textarea id="rca_findings" name="rca_findings" rows="4" placeholder="Summary of the RCA findings. Attach separate RCA report if necessary."
+                                  class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-6 border border-gray-300 p-4 rounded-md">
+                <legend class="text-lg font-semibold text-gray-700 px-2">Correction & Disposition</legend>
+                <div class="grid grid-cols-1 gap-4 mt-4">
+                     <div>
+                        <label for="corrections_implemented" class="block text-sm font-medium text-gray-700 required">Correction(s) Implemented</label>
+                        <textarea id="corrections_implemented" name="corrections_implemented" rows="3" required placeholder="Describe the actions taken to correct the specific non-conforming output."
+                                  class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                    </div>
+                    <div>
+                       <label for="disposition" class="block text-sm font-medium text-gray-700 required">Disposition of Non-Conforming Output</label>
+                       <select id="disposition" name="disposition" required
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                           <option value="">Select Disposition</option>
+                           <option value="Rework">Rework</option>
+                           <option value="Repair">Repair</option>
+                           <option value="Replacement">Replacement</option>
+                           <option value="Scrap/Disposal">Scrap/Disposal</option>
+                           <option value="Return to Supplier">Return to Supplier</option>
+                           <option value="Accepted under Concession">Accepted under Concession (Attach approval)</option>
+                       </select>
+                    </div>
+                    <div>
+                        <label for="disposition_details" class="block text-sm font-medium text-gray-700">Disposition Details / Concession Approval Ref.</label>
+                        <input type="text" id="disposition_details" name="disposition_details" placeholder="Add details or concession reference number if applicable"
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-6 border border-gray-300 p-4 rounded-md">
+                <legend class="text-lg font-semibold text-gray-700 px-2">Verification of Correction</legend>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                     <div class="md:col-span-3">
+                        <label for="verification_method" class="block text-sm font-medium text-gray-700 required">Verification Method</label>
+                        <input type="text" id="verification_method" name="verification_method" required placeholder="e.g., Re-inspection, Re-testing, Document Review"
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="md:col-span-3">
+                        <label for="verification_results" class="block text-sm font-medium text-gray-700 required">Verification Results</label>
+                        <textarea id="verification_results" name="verification_results" rows="2" required placeholder="Describe the outcome of the verification. Does it now meet requirements?"
+                                  class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                    </div>
+                    <div>
+                        <label for="verification_date" class="block text-sm font-medium text-gray-700 required">Verification Date</label>
+                        <input type="date" id="verification_date" name="verification_date" required
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="verified_by" class="block text-sm font-medium text-gray-700 required">Verified By</label>
+                        <input type="text" id="verified_by" name="verified_by" required
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-6 border border-gray-300 p-4 rounded-md bg-gray-50">
+                <legend class="text-lg font-semibold text-gray-700 px-2">Further Actions (CAPA)</legend>
+                 <p class="text-xs text-gray-500 mb-4 px-2">To be determined based on RCA findings and risk assessment.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Need for Corrective Action (CA)?</label>
+                        <div class="mt-1 flex space-x-4">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="need_ca" value="Yes" class="form-radio h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <span class="ml-2 text-sm text-gray-700">Yes</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="need_ca" value="No" checked class="form-radio h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <span class="ml-2 text-sm text-gray-700">No</span>
+                            </label>
+                        </div>
+                    </div>
+                     <div>
+                        <label for="ca_plan_ref" class="block text-sm font-medium text-gray-700">Corrective Action Plan Ref. (CAPA #)</label>
+                        <input type="text" id="ca_plan_ref" name="ca_plan_ref" placeholder="Enter CAPA number if CA is needed"
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                     <div>
+                        <label class="block text-sm font-medium text-gray-700">Need for Preventive Action (PA)?</label>
+                        <div class="mt-1 flex space-x-4">
+                             <label class="inline-flex items-center">
+                                <input type="radio" name="need_pa" value="Yes" class="form-radio h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <span class="ml-2 text-sm text-gray-700">Yes</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="need_pa" value="No" checked class="form-radio h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <span class="ml-2 text-sm text-gray-700">No</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="pa_plan_ref" class="block text-sm font-medium text-gray-700">Preventive Action Plan Ref. (CAPA #)</label>
+                        <input type="text" id="pa_plan_ref" name="pa_plan_ref" placeholder="Enter CAPA number if PA is needed"
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-6 border border-dashed border-gray-400 p-4 rounded-md bg-indigo-50">
+                <legend class="text-lg font-semibold text-indigo-700 px-2">NCR Closure (QA Department Only)</legend>
+                 <p class="text-xs text-gray-500 mb-4 px-2">This section is to be completed by the Quality Assurance Department for final closure.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="md:col-span-2">
+                        <label for="closure_comments" class="block text-sm font-medium text-gray-700">Closure Comments</label>
+                        <textarea id="closure_comments" name="closure_comments" rows="2" placeholder="Final comments before closing the NCR."
+                                  class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                    </div>
+                    <div>
+                        <label for="closed_by_qa" class="block text-sm font-medium text-gray-700">Closed By (QA)</label>
+                        <input type="text" id="closed_by_qa" name="closed_by_qa" readonly disabled
+                               class="mt-1 block w-full px-3 py-2 bg-gray-200 border border-gray-300 rounded-md shadow-sm sm:text-sm cursor-not-allowed">
+                    </div>
+                    <div>
+                        <label for="closure_date_qa" class="block text-sm font-medium text-gray-700">Closure Date (QA)</label>
+                        <input type="date" id="closure_date_qa" name="closure_date_qa" readonly disabled
+                               class="mt-1 block w-full px-3 py-2 bg-gray-200 border border-gray-300 rounded-md shadow-sm sm:text-sm cursor-not-allowed">
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="mt-8 flex justify-end space-x-3">
+                <button type="button" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    Save Draft
+                </button>
+                 <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Submit NCR
+                </button>
+                 <button type="button" id="closeNcrButtonQA" class="px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                    Close NCR (QA Only)
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get references to DOM elements for RPN calculation
+            const rpnDisplay = document.getElementById('calculated_rpn_display');
+            const radioRpnMinor = document.getElementById('rpn_minor_auto');
+            const radioRpnMajor = document.getElementById('rpn_major_auto');
+            const radioRpnCritical = document.getElementById('rpn_critical_auto');
+
+            // Select all radio buttons for S, O, D factors
+            const allSODRadios = document.querySelectorAll(
+                'input[name="severity_score"], input[name="occurrence_score"], input[name="detection_score"]'
+            );
+
+            // Function to calculate RPN and update the display and category
+            function calculateAndSetRPN() {
+                const s_radio = document.querySelector('input[name="severity_score"]:checked');
+                const o_radio = document.querySelector('input[name="occurrence_score"]:checked');
+                const d_radio = document.querySelector('input[name="detection_score"]:checked');
+
+                if (s_radio && o_radio && d_radio) {
+                    const s_val = parseInt(s_radio.value);
+                    const o_val = parseInt(o_radio.value);
+                    const d_val = parseInt(d_radio.value);
+                    const rpnVal = s_val * o_val * d_val;
+                    rpnDisplay.textContent = rpnVal; 
+                    
+                    radioRpnMinor.checked = (rpnVal >= 1 && rpnVal <= 10);
+                    radioRpnMajor.checked = (rpnVal > 10 && rpnVal <= 22);
+                    radioRpnCritical.checked = (rpnVal > 22);
+                } else {
+                    rpnDisplay.textContent = 'N/A';
+                    radioRpnMinor.checked = false;
+                    radioRpnMajor.checked = false;
+                    radioRpnCritical.checked = false;
+                }
+            }
+
+            allSODRadios.forEach(radio => {
+                radio.addEventListener('change', calculateAndSetRPN);
+            });
+            calculateAndSetRPN(); // Initial calculation
+
+            // --- QA Closure Section ---
+            // The fields 'closed_by_qa' and 'closure_date_qa' are already set to readonly/disabled in HTML.
+            // The button 'closeNcrButtonQA' text is also updated in HTML.
+            // Actual logic to enable these fields/button for QA users would typically involve
+            // server-side user role checks and potentially JavaScript to modify attributes if the user is QA.
+            // For this static example, they remain disabled.
+            // Example (if you had a variable like `isQAUser = true`):
+            /*
+            const isQAUser = true; // This would come from your authentication system
+            const closedByQAInput = document.getElementById('closed_by_qa');
+            const closureDateQAInput = document.getElementById('closure_date_qa');
+            const closeNcrButtonQA = document.getElementById('closeNcrButtonQA');
+
+            if (isQAUser) {
+                closedByQAInput.readOnly = false;
+                closedByQAInput.disabled = false;
+                closureDateQAInput.readOnly = false;
+                closureDateQAInput.disabled = false;
+                // closeNcrButtonQA functionality would be active
+            }
+            */
+        });
+    </script>
+</body>
+</html>
